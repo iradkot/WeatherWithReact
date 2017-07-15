@@ -1,8 +1,8 @@
 import React from 'react';
-import Page404 from './components/404';
 import WeatherApp from './components/WeatherApp';
-import About from './components/About';
-import Custom from './components/Custom';
+import Page404 from './components/common/404';
+import About from './components/common/About';
+import Custom from './components/common/Custom';
 import {Switch, Route, Redirect} from 'react-router-dom'
 
 const custom = () => (
