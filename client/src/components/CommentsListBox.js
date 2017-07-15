@@ -2,12 +2,15 @@ import React from 'react';
 import CommentForm from './CommentForm';
 import CommentBox from './CommentBox';
 
-
 class CommentsListBox extends React.Component {
   constructor(props) {
     super(props);
-    this.addComment = this.addComment.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
+    this.addComment = this
+      .addComment
+      .bind(this);
+    this.deleteComment = this
+      .deleteComment
+      .bind(this);
     this.state = {
       comments: props.comments
     }
@@ -29,18 +32,17 @@ class CommentsListBox extends React.Component {
   };
 
   render() {
+    const comments = this
+      .state
+      .comments
+      .map((item, index) => <CommentBox
+        item={item}
+        deleteComment={this.deleteComment}
+        {...item}
+        key={index}/>)
     return (
       <div>
-        <ul>
-          <CommentForm addComment={this.addComment}/> {this
-            .state
-            .comments
-            .map((item, index) => <CommentBox
-              item={item}
-              deleteComment={this.deleteComment}
-              {...item}
-              key={index}/>)}
-        </ul>
+        <CommentForm addComment={this.addComment}/> {comments}
       </div>
     )
   }

@@ -9796,7 +9796,11 @@ var App = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_Header2.default, null),
-          _react2.default.createElement(_routes2.default, null)
+          _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(_routes2.default, null)
+          )
         )
       );
     }
@@ -24109,7 +24113,7 @@ var WeatherApp = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'App-header' },
+          { className: 'page-header' },
           _react2.default.createElement(
             'h2',
             null,
@@ -24203,40 +24207,73 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WeatherBox = function (_React$Component) {
   _inherits(WeatherBox, _React$Component);
 
-  function WeatherBox() {
+  function WeatherBox(props) {
     _classCallCheck(this, WeatherBox);
 
-    return _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).apply(this, arguments));
+    //bind functions
+    var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    //declare state
+    _this.state = {
+      city: []
+    };
+    return _this;
   }
 
   _createClass(WeatherBox, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      var _this2 = this;
+
+      event.preventDefault();
+      axios.get('http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city).then(function (resp) {
+        _this2.props.onSubmitSearchForm(resp.data);
+        _this2.setState({ city: '' });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
-        { className: 'col-md-12 weatherItem' },
+        { className: 'col-md-3 weatherItem' },
         _react2.default.createElement(
           'div',
-          { className: 'pull-right', onClick: function onClick() {
-              _this2.props.removeWeatherBox(_this2.props.item);
-            } },
-          'X'
-        ),
-        _react2.default.createElement(
-          'h2',
-          null,
-          this.props.name
-        ),
-        _react2.default.createElement(
-          'h3',
-          null,
-          this.props.text,
-          '- ',
-          this.props.feelslike_c,
-          '\xA0| C',
-          _react2.default.createElement('img', { src: this.props.icon, alt: this.props.name })
+          { className: 'media' },
+          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash pull-right', onClick: function onClick() {
+              _this3.props.removeWeatherBox(_this3.props.item);
+            } }),
+          _react2.default.createElement(
+            'div',
+            { className: 'media-left' },
+            _react2.default.createElement('img', {
+              src: this.props.icon,
+              alt: this.props.name,
+              className: 'media-object',
+              style: {
+                width: 60
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'media-body' },
+            _react2.default.createElement(
+              'h4',
+              { className: 'media-heading' },
+              this.props.name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              this.props.text,
+              '- ',
+              this.props.feelslike_c,
+              '\xA0| C'
+            )
+          )
         ),
         _react2.default.createElement(_CommentsListBox2.default, { comments: this.props.comments }),
         _react2.default.createElement('hr', null)
@@ -24323,22 +24360,19 @@ var CommentsListBox = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var comments = this.state.comments.map(function (item, index) {
+        return _react2.default.createElement(_CommentBox2.default, _extends({
+          item: item,
+          deleteComment: _this2.deleteComment
+        }, item, {
+          key: index }));
+      });
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'ul',
-          null,
-          _react2.default.createElement(_CommentForm2.default, { addComment: this.addComment }),
-          ' ',
-          this.state.comments.map(function (item, index) {
-            return _react2.default.createElement(_CommentBox2.default, _extends({
-              item: item,
-              deleteComment: _this2.deleteComment
-            }, item, {
-              key: index }));
-          })
-        )
+        _react2.default.createElement(_CommentForm2.default, { addComment: this.addComment }),
+        ' ',
+        comments
       );
     }
   }]);
@@ -24463,16 +24497,16 @@ var CommentBox = function CommentBox(props) {
     props.deleteComment(props.item);
   };
   return _react2.default.createElement(
-    'li',
-    null,
-    'Written by:',
-    props.user,
-    '- ',
-    props.text,
+    "div",
+    { "class": "panel panel-default" },
     _react2.default.createElement(
-      'span',
-      { onClick: deleteComment },
-      'X'
+      "div",
+      { "class": "panel-body" },
+      "Written by:",
+      props.user,
+      "- ",
+      props.text,
+      _react2.default.createElement("span", { className: "glyphicon glyphicon-trash pull-right", onClick: deleteComment })
     )
   );
 };
@@ -24514,6 +24548,7 @@ var SearchForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props));
 
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.onSubmitSearchForm = _this.onSubmitSearchForm.bind(_this);
         _this.state = {
             city: []
         };
@@ -24521,6 +24556,24 @@ var SearchForm = function (_React$Component) {
     }
 
     _createClass(SearchForm, [{
+        key: 'onSubmitSearchForm',
+        value: function onSubmitSearchForm(string) {
+            //-----------------------fix-----------------------------
+            var stracture = {
+                name: string.location.name,
+                icon: string.current.condition.icon,
+                feelslike_c: string.current.feelslike_c,
+                text: string.current.condition.text,
+                comments: []
+            };
+
+            this.setState(function (prevState) {
+                return {
+                    cards: prevState.cards.concat(stracture)
+                };
+            });
+        }
+    }, {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             var _this2 = this;
@@ -24537,37 +24590,28 @@ var SearchForm = function (_React$Component) {
             var _this3 = this;
 
             return _react2.default.createElement(
-                'header',
-                { className: 'row' },
+                'form',
+                { action: '#', id: 'getWeatherForm', onSubmit: this.handleSubmit },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-12 text-center' },
+                    { className: 'input-group' },
+                    _react2.default.createElement('input', {
+                        type: 'text',
+                        className: 'form-control',
+                        id: 'city',
+                        placeholder: 'Enter city',
+                        required: true,
+                        value: this.state.city,
+                        onChange: function onChange(event) {
+                            return _this3.setState({ city: event.target.value });
+                        } }),
                     _react2.default.createElement(
-                        'form',
-                        { action: '#', id: 'getWeatherForm', onSubmit: this.handleSubmit },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement('input', {
-                                type: 'text',
-                                className: 'form-control',
-                                id: 'city',
-                                placeholder: 'Enter city',
-                                required: true,
-                                value: this.state.city,
-                                onChange: function onChange(event) {
-                                    return _this3.setState({ city: event.target.value });
-                                } }),
-                            _react2.default.createElement(
-                                'small',
-                                { id: 'emailHelp', className: 'form-text text-muted' },
-                                'Serving wather since 1981'
-                            )
-                        ),
+                        'span',
+                        { className: 'input-group-btn' },
                         _react2.default.createElement(
                             'button',
-                            { type: 'submit', className: 'btn btn-primary' },
-                            'Submit'
+                            { className: 'btn btn-default', type: 'submit' },
+                            'Go!'
                         )
                     )
                 )
@@ -27996,9 +28040,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Header = function Header(props) {
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    '404'
+    _react2.default.createElement("img", { src: "http://media02.hongkiat.com/funny-creative-error-404/37-error-404-page.jpg", alt: "" })
   );
 };
 exports.default = Header;
@@ -28022,9 +28066,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Header = function Header(props) {
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    'About'
+    _react2.default.createElement(
+      "div",
+      { className: "page-header" },
+      _react2.default.createElement(
+        "h1",
+        null,
+        "About"
+      )
+    ),
+    _react2.default.createElement(
+      "p",
+      null,
+      "This is some text."
+    ),
+    _react2.default.createElement(
+      "p",
+      null,
+      "This is another text."
+    )
   );
 };
 exports.default = Header;
@@ -28047,18 +28109,32 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Header = function Header(props) {
-  var player = props.match.params.id;
-  if (!player) {
+  var id = props.match.params.id;
+
+  if (!id) {
     return _react2.default.createElement(
-      'div',
+      "div",
       null,
-      'Sorry, but the player was not found'
+      "Sorry, but the player was not found"
     );
   }
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    player
+    _react2.default.createElement(
+      "div",
+      { className: "page-header" },
+      _react2.default.createElement(
+        "h1",
+        null,
+        "Custom page"
+      )
+    ),
+    _react2.default.createElement(
+      "p",
+      null,
+      id
+    )
   );
 };
 exports.default = Header;

@@ -4,12 +4,12 @@ const CommentBox = (props) => {
     props.deleteComment(props.item);
   };
   return (
-    <li>Written by:{props.user}
-      - {props.text}
-      <span onClick={deleteComment}>
-        X
-      </span>
-    </li>
+    <div class="panel panel-default">
+      <div class="panel-body">Written by:{props.user}
+        - {props.text}
+        <span className="glyphicon glyphicon-trash pull-right" onClick={deleteComment}></span>
+      </div>
+    </div>
   );
 };
 export default CommentBox;

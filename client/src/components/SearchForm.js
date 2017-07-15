@@ -7,9 +7,25 @@ class SearchForm extends React.Component {
         this.handleSubmit = this
             .handleSubmit
             .bind(this);
+        this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
         this.state = {
             city: []
         }
+    }
+    onSubmitSearchForm(string) {//-----------------------fix-----------------------------
+        var stracture = {
+            name: string.location.name,
+            icon: string.current.condition.icon,
+            feelslike_c: string.current.feelslike_c,
+            text: string.current.condition.text,
+            comments: []
+        };
+
+        this.setState(prevState => ({
+            cards: prevState
+                .cards
+                .concat(stracture)
+        }));
     }
     handleSubmit(event) {
         event.preventDefault();
@@ -25,24 +41,21 @@ class SearchForm extends React.Component {
 
     render() {
         return (
-            <header className="row">
-                <div className="col-md-12 text-center">
-                    <form action="#" id="getWeatherForm" onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="city"
-                                placeholder="Enter city"
-                                required
-                                value={this.state.city}
-                                onChange={(event) => this.setState({city: event.target.value})}/>
-                            <small id="emailHelp" className="form-text text-muted">Serving wather since 1981</small>
-                        </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                    </form>
+            <form action="#" id="getWeatherForm" onSubmit={this.handleSubmit}>
+                <div className="input-group">
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="city"
+                        placeholder="Enter city"
+                        required
+                        value={this.state.city}
+                        onChange={(event) => this.setState({city: event.target.value})}/>
+                    <span className="input-group-btn">
+                        <button className="btn btn-default" type="submit">Go!</button>
+                    </span>
                 </div>
-            </header>
+            </form>
         );
     }
 }

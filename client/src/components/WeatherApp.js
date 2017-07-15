@@ -3,17 +3,12 @@ import ReactDom from 'react-dom';
 import WeatherListBox from './WeatherListBox';
 import SearchForm from './SearchForm';
 
-
 class WeatherApp extends React.Component {
   constructor(props) {
     super(props);
-    this.onSubmitSearchForm = this
-      .onSubmitSearchForm
-      .bind(this);
-    this.removeWeatherBox = this
-      .removeWeatherBox
-      .bind(this);
-      
+    this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
+    this.removeWeatherBox = this.removeWeatherBox.bind(this);
+
     this.state = {
       cards: []
     }
@@ -46,7 +41,7 @@ class WeatherApp extends React.Component {
   render() {
     return (
       <div>
-        <div className="App-header">
+        <div className="page-header">
           <h2>Weather app {Math.random() * 9}</h2>
           <SearchForm onSubmitSearchForm={this.onSubmitSearchForm}/>
         </div>
