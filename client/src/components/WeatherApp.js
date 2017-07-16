@@ -6,27 +6,21 @@ import SearchForm from './SearchForm';
 class WeatherApp extends React.Component {
   constructor(props) {
     super(props);
+
+    //Bind functions
     this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
     this.removeWeatherBox = this.removeWeatherBox.bind(this);
 
     this.state = {
-      cards: []
+      cards: ["tel aviv", "tokyo","belgrad", "budapest"]
     }
 
   }
   onSubmitSearchForm(string) {
-    var stracture = {
-      name: string.location.name,
-      icon: string.current.condition.icon,
-      feelslike_c: string.current.feelslike_c,
-      text: string.current.condition.text,
-      comments: []
-    };
-
     this.setState(prevState => ({
       cards: prevState
         .cards
-        .concat(stracture)
+        .concat(string)
     }));
   };
 

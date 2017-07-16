@@ -3,6 +3,7 @@ import React from 'react';
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
+    //Bind functions
     this.formSubmitFnc = this.formSubmitFnc.bind(this);
     this.state = {
       formInputuser: 'Visitor',

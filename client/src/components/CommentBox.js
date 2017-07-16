@@ -1,13 +1,9 @@
 import React from 'react';
 const CommentBox = (props) => {
-  const deleteComment = () => {
-    props.deleteComment(props.item);
-  };
   return (
-    <div class="panel panel-default">
-      <div class="panel-body">Written by:{props.user}
-        - {props.text}
-        <span className="glyphicon glyphicon-trash pull-right" onClick={deleteComment}></span>
+    <div className="panel panel-default">
+      <div className="panel-body">Written by:{props.user} - {props.text}
+        <span className="glyphicon glyphicon-trash pull-right" onClick={()=>{props.deleteComment(props.item)}}></span>
       </div>
     </div>
   );

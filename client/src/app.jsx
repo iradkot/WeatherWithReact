@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Header from './components/common/Header';
-import Routesss from './routes';
+import Routesss from './Routes';
 import {BrowserRouter} from 'react-router-dom'
 
 class App extends React.Component {

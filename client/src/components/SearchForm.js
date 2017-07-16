@@ -4,15 +4,13 @@ const axios = require('axios');
 class SearchForm extends React.Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this
-            .handleSubmit
-            .bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
         this.state = {
             city: []
         }
     }
-    onSubmitSearchForm(string) {//-----------------------fix-----------------------------
+    onSubmitSearchForm(string) {
         var stracture = {
             name: string.location.name,
             icon: string.current.condition.icon,
@@ -30,12 +28,15 @@ class SearchForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         axios
-            .get(`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}`)
+            .get(`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}&rand=1`)
             .then(resp => {
                 this
                     .props
-                    .onSubmitSearchForm(resp.data);
+                    .onSubmitSearchForm(this.state.city);
                 this.setState({city: ''});
+            })
+            .catch(function (error) {
+              console.log(error);
             });
     }
 

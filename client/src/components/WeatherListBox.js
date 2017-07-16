@@ -8,10 +8,9 @@ const WeatherListBox = (props) => {
           key={index}
           index={index}
           removeWeatherBox={props.removeWeatherBox}
-          {...item}
           item={item}/>)
   return (
-    <div>
+    <div className="equalHMVWrap flexWrap">
       {boxes}
     </div>
   );

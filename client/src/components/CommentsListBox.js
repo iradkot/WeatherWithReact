@@ -5,12 +5,9 @@ import CommentBox from './CommentBox';
 class CommentsListBox extends React.Component {
   constructor(props) {
     super(props);
-    this.addComment = this
-      .addComment
-      .bind(this);
-    this.deleteComment = this
-      .deleteComment
-      .bind(this);
+    //Bind functions
+    this.addComment = this.addComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
     this.state = {
       comments: props.comments
     }
@@ -21,8 +18,8 @@ class CommentsListBox extends React.Component {
         .comments
         .concat(str)
     }));
-
   };
+
   deleteComment(str) {
     const newState = this.state.comments;
     if (newState.indexOf(str) > -1) {

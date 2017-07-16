@@ -2,7 +2,7 @@ import React from 'react';
 const Header = (props) => {
   const {id} = props.match.params;
   if (!id) {
-    return <div>Sorry, but the player was not found</div>
+    return <div>not found</div>
   }
   return (
     <div>
