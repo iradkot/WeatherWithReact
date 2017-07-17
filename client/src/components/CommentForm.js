@@ -2,24 +2,25 @@ import React from 'react';
 
 class CommentForm extends React.Component {
   constructor(props) {
-    super(props);
-    //Bind functions
-    this.formSubmitFnc = this.formSubmitFnc.bind(this);
-    this.state = {
-      formInputuser: 'Visitor',
-      formInputcomment: ''
-    }
+        super(props);
+        this.formSubmitFnc = this.formSubmitFnc.bind(this);
+        //Create local CommentForm state
+        this.state = {
+            formInputuser: 'Visitor',
+            formInputcomment: ''
+        }
 
-  }
-  formSubmitFnc(event) {
-    event.preventDefault();
-    this
-      .props
-      .addComment({text: this.state.formInputcomment, user: this.state.formInputuser});
-    this.setState({formInputuser: 'Visitor', formInputcomment: ''});
-  }
+    }
+    formSubmitFnc(event){
+        event.preventDefault();
+        this.props
+            .addComment({text: this.state.formInputcomment, user: this.state.formInputuser});
+        this.setState({formInputuser: 'Visitor', formInputcomment: ''});
+    }
   render() {
     return (
+      //Here we call the props function in arrow function so we wont evoke them. 
+      //we can also use a function formSubmitFnc
       <form action="#" className="comment_form" onSubmit={this.formSubmitFnc}>
         <div className="form-group">
           <input

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'; //Calling link to bind with router
 class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <Link className="navbar-brand" to='/'>React weather project</Link>
+                        <Link className="navbar-brand" to='/'>React weather project</Link> 
                     </div>
                     <ul className="nav navbar-nav">
                         <li>

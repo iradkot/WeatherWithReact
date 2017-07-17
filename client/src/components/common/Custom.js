@@ -9,7 +9,7 @@ const Header = (props) => {
       <div className="page-header">
         <h1>Custom page</h1>
       </div>
-      <p>{id}</p>
+      <p>Param in browser is : {id}</p>
     </div>
   );
 };

@@ -5,38 +5,19 @@ class SearchForm extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
         this.state = {
             city: []
         }
     }
-    onSubmitSearchForm(string) {
-        var stracture = {
-            name: string.location.name,
-            icon: string.current.condition.icon,
-            feelslike_c: string.current.feelslike_c,
-            text: string.current.condition.text,
-            comments: []
-        };
-
-        this.setState(prevState => ({
-            cards: prevState
-                .cards
-                .concat(stracture)
-        }));
-    }
-    handleSubmit(event) {
+    handleSubmit(event){
         event.preventDefault();
         axios
-            .get(`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}&rand=1`)
+            .get(`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}`)
             .then(resp => {
                 this
                     .props
-                    .onSubmitSearchForm(this.state.city);
+                    .onSubmitSearchForm(resp.data);
                 this.setState({city: ''});
-            })
-            .catch(function (error) {
-              console.log(error);
             });
     }
 

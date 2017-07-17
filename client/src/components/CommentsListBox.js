@@ -4,29 +4,29 @@ import CommentBox from './CommentBox';
 
 class CommentsListBox extends React.Component {
   constructor(props) {
-    super(props);
-    //Bind functions
-    this.addComment = this.addComment.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
-    this.state = {
-      comments: props.comments
+        super(props);
+        //bind this to functions
+        this.addComment = this.addComment.bind(this);
+        this.deleteComment = this.deleteComment.bind(this);
+        //Declare local state
+        this.state = {
+            comments: props.comments
+        }
     }
-  }
-  addComment(str) {
-    this.setState(prevState => ({
-      comments: prevState
-        .comments
-        .concat(str)
-    }));
-  };
-
-  deleteComment(str) {
-    const newState = this.state.comments;
-    if (newState.indexOf(str) > -1) {
-      newState.splice(newState.indexOf(str), 1);
-      this.setState({comments: newState})
-    }
-  };
+    addComment(str){
+        this.setState(prevState => ({
+            comments: prevState
+                .comments
+                .concat(str)
+        }));
+    };
+    deleteComment(str){
+        const newState = this.state.comments;
+        if (newState.indexOf(str) > -1) {
+            newState.splice(newState.indexOf(str), 1);
+            this.setState({comments: newState})
+        }
+    };
 
   render() {
     const comments = this

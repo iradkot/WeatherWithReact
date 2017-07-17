@@ -1327,7 +1327,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 var bind = __webpack_require__(99);
-var isBuffer = __webpack_require__(242);
+var isBuffer = __webpack_require__(241);
 
 /*global toString:true*/
 
@@ -7604,7 +7604,7 @@ var matchPath = function matchPath(pathname) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(13);
-var normalizeHeaderName = __webpack_require__(244);
+var normalizeHeaderName = __webpack_require__(243);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -11727,12 +11727,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(13);
-var settle = __webpack_require__(245);
-var buildURL = __webpack_require__(247);
-var parseHeaders = __webpack_require__(248);
-var isURLSameOrigin = __webpack_require__(249);
+var settle = __webpack_require__(244);
+var buildURL = __webpack_require__(246);
+var parseHeaders = __webpack_require__(247);
+var isURLSameOrigin = __webpack_require__(248);
 var createError = __webpack_require__(101);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(250);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(249);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -11829,7 +11829,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(251);
+      var cookies = __webpack_require__(250);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -11914,7 +11914,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(246);
+var enhanceError = __webpack_require__(245);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -24162,6 +24162,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//Calling link to bind with router
 var Header = function (_Component) {
     _inherits(Header, _Component);
 
@@ -26587,26 +26588,31 @@ var _reactRouterDom = __webpack_require__(57);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var custom = function custom() {
-    return _react2.default.createElement(
-        _reactRouterDom.Switch,
-        null,
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/custom', component: _Custom2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/custom/:id', component: _Custom2.default })
-    );
-};
-var Routesss = function Routesss() {
-    return _react2.default.createElement(
-        'div',
-        { className: 'container' },
+    return (//We define here a custom switch route and handle two cases
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _WeatherApp2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'about-us', path: '/about-us', component: _About2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'About', path: '/About', component: _About2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { name: 'custom', path: '/custom', component: custom }),
-            _react2.default.createElement(_reactRouterDom.Redirect, { from: '/about-us', to: '/page' }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/custom', component: _Custom2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/custom/:id', component: _Custom2.default })
+        )
+    );
+};
+var Routesss = function Routesss() {
+    return (
+        //Examples of route, redirect,path="*" component={Page404} will handle all unknowns
+        _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(
+                _reactRouterDom.Switch,
+                null,
+                _react2.default.createElement(_reactRouterDom.Route, { name: 'home', exact: true, path: '/', component: _WeatherApp2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { name: 'about-us', path: '/about-us', component: _About2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { name: 'About', path: '/About', component: _About2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { name: 'custom', path: '/custom', component: custom }),
+                _react2.default.createElement(_reactRouterDom.Redirect, { from: '/about-us', to: '/page' }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '*', component: _2.default })
+            )
         )
     );
 };
@@ -26638,7 +26644,7 @@ var _WeatherListBox = __webpack_require__(234);
 
 var _WeatherListBox2 = _interopRequireDefault(_WeatherListBox);
 
-var _SearchForm = __webpack_require__(239);
+var _SearchForm = __webpack_require__(258);
 
 var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
@@ -26656,14 +26662,15 @@ var WeatherApp = function (_React$Component) {
   function WeatherApp(props) {
     _classCallCheck(this, WeatherApp);
 
-    //Bind functions
+    //bind this to functions
     var _this = _possibleConstructorReturn(this, (WeatherApp.__proto__ || Object.getPrototypeOf(WeatherApp)).call(this, props));
 
-    _this.onSubmitSearchForm = _this.onSubmitSearchForm.bind(_this);
     _this.removeWeatherBox = _this.removeWeatherBox.bind(_this);
+    _this.onSubmitSearchForm = _this.onSubmitSearchForm.bind(_this);
 
+    //Declare local state
     _this.state = {
-      cards: ["tel aviv", "tokyo", "belgrad", "budapest"]
+      cards: []
     };
 
     return _this;
@@ -26672,9 +26679,17 @@ var WeatherApp = function (_React$Component) {
   _createClass(WeatherApp, [{
     key: 'onSubmitSearchForm',
     value: function onSubmitSearchForm(string) {
+      var stracture = {
+        name: string.location.name,
+        icon: string.current.condition.icon,
+        feelslike_c: string.current.feelslike_c,
+        text: string.current.condition.text,
+        comments: []
+      };
+
       this.setState(function (prevState) {
         return {
-          cards: prevState.cards.concat(string)
+          cards: prevState.cards.concat(stracture)
         };
       });
     }
@@ -26727,6 +26742,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -26739,15 +26756,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var WeatherListBox = function WeatherListBox(props) {
   var boxes = props.cards.map(function (item, index) {
-    return _react2.default.createElement(_WeatherBox2.default, {
+    return _react2.default.createElement(_WeatherBox2.default, _extends({
       key: index,
       index: index,
-      removeWeatherBox: props.removeWeatherBox,
-      item: item });
+      removeWeatherBox: props.removeWeatherBox
+    }, item, {
+      item: item }));
   });
   return _react2.default.createElement(
     'div',
-    { className: 'equalHMVWrap flexWrap' },
+    { className: 'equalHeightWrap flexWrap' },
     boxes
   );
 };
@@ -26783,7 +26801,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var axios = __webpack_require__(240);
+var axios = __webpack_require__(239);
 
 var WeatherBox = function (_React$Component) {
   _inherits(WeatherBox, _React$Component);
@@ -26791,45 +26809,21 @@ var WeatherBox = function (_React$Component) {
   function WeatherBox(props) {
     _classCallCheck(this, WeatherBox);
 
+    //bind this to functions
     var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
 
-    _this.state = {
-      city: _this.props.item,
-      comments: [],
-      ajaxData: []
-    };
+    _this.deleteBoxFnc = _this.deleteBoxFnc.bind(_this);
     return _this;
   }
 
   _createClass(WeatherBox, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      axios.get('http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.props.item + '&rand=2').then(function (resp) {
-        var stracture = {
-          name: resp.data.location.name,
-          icon: resp.data.current.condition.icon,
-          feelslike_c: resp.data.current.feelslike_c,
-          text: resp.data.current.condition.text,
-          comments: []
-        };
-
-        _this2.setState(function (prevState) {
-          return {
-            ajaxData: prevState.ajaxData = stracture
-          };
-        });
-      }).catch(function (error) {
-        console.log('Not found');
-      });
+    key: 'deleteBoxFnc',
+    value: function deleteBoxFnc() {
+      this.props.removeWeatherBox(this.props.item); //Using a function to call function in props
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
-
-      var itemData = this.state.ajaxData;
       return _react2.default.createElement(
         'div',
         { className: 'equalHMV eq' },
@@ -26838,15 +26832,13 @@ var WeatherBox = function (_React$Component) {
           { className: 'media' },
           _react2.default.createElement('span', {
             className: 'glyphicon glyphicon-trash pull-right',
-            onClick: function onClick() {
-              _this3.props.removeWeatherBox(_this3.props.item);
-            } }),
+            onClick: this.deleteBoxFnc }),
           _react2.default.createElement(
             'div',
             { className: 'media-left' },
             _react2.default.createElement('img', {
-              src: itemData.icon,
-              alt: itemData.name,
+              src: this.props.icon,
+              alt: this.props.name,
               className: 'media-object',
               style: {
                 width: 60
@@ -26858,19 +26850,19 @@ var WeatherBox = function (_React$Component) {
             _react2.default.createElement(
               'h4',
               { className: 'media-heading' },
-              itemData.name
+              this.props.name
             ),
             _react2.default.createElement(
               'p',
               null,
-              itemData.text,
+              this.props.text,
               '- ',
-              itemData.feelslike_c,
+              this.props.feelslike_c,
               '\xA0| C'
             )
           )
         ),
-        _react2.default.createElement(_CommentsListBox2.default, { comments: this.state.comments }),
+        _react2.default.createElement(_CommentsListBox2.default, { comments: this.props.comments }),
         _react2.default.createElement('hr', null)
       );
     }
@@ -26889,7 +26881,7 @@ exports.default = WeatherBox;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26917,63 +26909,64 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CommentsListBox = function (_React$Component) {
-  _inherits(CommentsListBox, _React$Component);
+    _inherits(CommentsListBox, _React$Component);
 
-  function CommentsListBox(props) {
-    _classCallCheck(this, CommentsListBox);
+    function CommentsListBox(props) {
+        _classCallCheck(this, CommentsListBox);
 
-    //Bind functions
-    var _this = _possibleConstructorReturn(this, (CommentsListBox.__proto__ || Object.getPrototypeOf(CommentsListBox)).call(this, props));
+        //bind this to functions
+        var _this = _possibleConstructorReturn(this, (CommentsListBox.__proto__ || Object.getPrototypeOf(CommentsListBox)).call(this, props));
 
-    _this.addComment = _this.addComment.bind(_this);
-    _this.deleteComment = _this.deleteComment.bind(_this);
-    _this.state = {
-      comments: props.comments
-    };
-    return _this;
-  }
-
-  _createClass(CommentsListBox, [{
-    key: 'addComment',
-    value: function addComment(str) {
-      this.setState(function (prevState) {
-        return {
-          comments: prevState.comments.concat(str)
+        _this.addComment = _this.addComment.bind(_this);
+        _this.deleteComment = _this.deleteComment.bind(_this);
+        //Declare local state
+        _this.state = {
+            comments: props.comments
         };
-      });
+        return _this;
     }
-  }, {
-    key: 'deleteComment',
-    value: function deleteComment(str) {
-      var newState = this.state.comments;
-      if (newState.indexOf(str) > -1) {
-        newState.splice(newState.indexOf(str), 1);
-        this.setState({ comments: newState });
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
 
-      var comments = this.state.comments.map(function (item, index) {
-        return _react2.default.createElement(_CommentBox2.default, _extends({
-          item: item,
-          deleteComment: _this2.deleteComment
-        }, item, {
-          key: index }));
-      });
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_CommentForm2.default, { addComment: this.addComment }),
-        ' ',
-        comments
-      );
-    }
-  }]);
+    _createClass(CommentsListBox, [{
+        key: 'addComment',
+        value: function addComment(str) {
+            this.setState(function (prevState) {
+                return {
+                    comments: prevState.comments.concat(str)
+                };
+            });
+        }
+    }, {
+        key: 'deleteComment',
+        value: function deleteComment(str) {
+            var newState = this.state.comments;
+            if (newState.indexOf(str) > -1) {
+                newState.splice(newState.indexOf(str), 1);
+                this.setState({ comments: newState });
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
 
-  return CommentsListBox;
+            var comments = this.state.comments.map(function (item, index) {
+                return _react2.default.createElement(_CommentBox2.default, _extends({
+                    item: item,
+                    deleteComment: _this2.deleteComment
+                }, item, {
+                    key: index }));
+            });
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(_CommentForm2.default, { addComment: this.addComment }),
+                ' ',
+                comments
+            );
+        }
+    }]);
+
+    return CommentsListBox;
 }(_react2.default.Component);
 
 exports.default = CommentsListBox;
@@ -27009,10 +27002,10 @@ var CommentForm = function (_React$Component) {
   function CommentForm(props) {
     _classCallCheck(this, CommentForm);
 
-    //Bind functions
     var _this = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this, props));
 
     _this.formSubmitFnc = _this.formSubmitFnc.bind(_this);
+    //Create local CommentForm state
     _this.state = {
       formInputuser: 'Visitor',
       formInputcomment: ''
@@ -27033,35 +27026,39 @@ var CommentForm = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'form',
-        { action: '#', className: 'comment_form', onSubmit: this.formSubmitFnc },
+      return (
+        //Here we call the props function in arrow function so we wont evoke them. 
+        //we can also use a function formSubmitFnc
         _react2.default.createElement(
-          'div',
-          { className: 'form-group' },
-          _react2.default.createElement('input', {
-            type: 'text',
-            className: 'form-control',
-            placeholder: 'Enter user',
-            value: this.state.formInputuser,
-            onChange: function onChange(event) {
-              return _this2.setState({ formInputuser: event.target.value });
-            },
-            required: true }),
-          _react2.default.createElement('input', {
-            type: 'text',
-            className: 'form-control',
-            placeholder: 'Enter comment',
-            value: this.state.formInputcomment,
-            onChange: function onChange(event) {
-              return _this2.setState({ formInputcomment: event.target.value });
-            },
-            required: true })
-        ),
-        _react2.default.createElement(
-          'button',
-          { type: 'submit', className: 'btn btn-primary commentSend' },
-          'Submit'
+          'form',
+          { action: '#', className: 'comment_form', onSubmit: this.formSubmitFnc },
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement('input', {
+              type: 'text',
+              className: 'form-control',
+              placeholder: 'Enter user',
+              value: this.state.formInputuser,
+              onChange: function onChange(event) {
+                return _this2.setState({ formInputuser: event.target.value });
+              },
+              required: true }),
+            _react2.default.createElement('input', {
+              type: 'text',
+              className: 'form-control',
+              placeholder: 'Enter comment',
+              value: this.state.formInputcomment,
+              onChange: function onChange(event) {
+                return _this2.setState({ formInputcomment: event.target.value });
+              },
+              required: true })
+          ),
+          _react2.default.createElement(
+            'button',
+            { type: 'submit', className: 'btn btn-primary commentSend' },
+            'Submit'
+          )
         )
       );
     }
@@ -27090,6 +27087,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CommentBox = function CommentBox(props) {
+  //Calling a props function via inner function
   return _react2.default.createElement(
     "div",
     { className: "panel panel-default" },
@@ -27098,9 +27096,11 @@ var CommentBox = function CommentBox(props) {
       { className: "panel-body" },
       "Written by:",
       props.user,
-      " - ",
+      "- ",
       props.text,
-      _react2.default.createElement("span", { className: "glyphicon glyphicon-trash pull-right", onClick: function onClick() {
+      _react2.default.createElement("span", {
+        className: "glyphicon glyphicon-trash pull-right",
+        onClick: function onClick() {
           props.deleteComment(props.item);
         } })
     )
@@ -27112,123 +27112,10 @@ exports.default = CommentBox;
 /* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var axios = __webpack_require__(240);
-
-var SearchForm = function (_React$Component) {
-    _inherits(SearchForm, _React$Component);
-
-    function SearchForm(props) {
-        _classCallCheck(this, SearchForm);
-
-        var _this = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props));
-
-        _this.handleSubmit = _this.handleSubmit.bind(_this);
-        _this.onSubmitSearchForm = _this.onSubmitSearchForm.bind(_this);
-        _this.state = {
-            city: []
-        };
-        return _this;
-    }
-
-    _createClass(SearchForm, [{
-        key: 'onSubmitSearchForm',
-        value: function onSubmitSearchForm(string) {
-            var stracture = {
-                name: string.location.name,
-                icon: string.current.condition.icon,
-                feelslike_c: string.current.feelslike_c,
-                text: string.current.condition.text,
-                comments: []
-            };
-
-            this.setState(function (prevState) {
-                return {
-                    cards: prevState.cards.concat(stracture)
-                };
-            });
-        }
-    }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(event) {
-            var _this2 = this;
-
-            event.preventDefault();
-            axios.get('http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city + '&rand=1').then(function (resp) {
-                _this2.props.onSubmitSearchForm(_this2.state.city);
-                _this2.setState({ city: '' });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            return _react2.default.createElement(
-                'form',
-                { action: '#', id: 'getWeatherForm', onSubmit: this.handleSubmit },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'input-group' },
-                    _react2.default.createElement('input', {
-                        type: 'text',
-                        className: 'form-control',
-                        id: 'city',
-                        placeholder: 'Enter city',
-                        required: true,
-                        value: this.state.city,
-                        onChange: function onChange(event) {
-                            return _this3.setState({ city: event.target.value });
-                        } }),
-                    _react2.default.createElement(
-                        'span',
-                        { className: 'input-group-btn' },
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'btn btn-default', type: 'submit' },
-                            'Go!'
-                        )
-                    )
-                )
-            );
-        }
-    }]);
-
-    return SearchForm;
-}(_react2.default.Component);
-
-exports.default = SearchForm;
+module.exports = __webpack_require__(240);
 
 /***/ }),
 /* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(241);
-
-/***/ }),
-/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27236,7 +27123,7 @@ module.exports = __webpack_require__(241);
 
 var utils = __webpack_require__(13);
 var bind = __webpack_require__(99);
-var Axios = __webpack_require__(243);
+var Axios = __webpack_require__(242);
 var defaults = __webpack_require__(62);
 
 /**
@@ -27271,14 +27158,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(103);
-axios.CancelToken = __webpack_require__(257);
+axios.CancelToken = __webpack_require__(256);
 axios.isCancel = __webpack_require__(102);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(258);
+axios.spread = __webpack_require__(257);
 
 module.exports = axios;
 
@@ -27287,7 +27174,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, exports) {
 
 /*!
@@ -27314,7 +27201,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27322,10 +27209,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(62);
 var utils = __webpack_require__(13);
-var InterceptorManager = __webpack_require__(252);
-var dispatchRequest = __webpack_require__(253);
-var isAbsoluteURL = __webpack_require__(255);
-var combineURLs = __webpack_require__(256);
+var InterceptorManager = __webpack_require__(251);
+var dispatchRequest = __webpack_require__(252);
+var isAbsoluteURL = __webpack_require__(254);
+var combineURLs = __webpack_require__(255);
 
 /**
  * Create a new instance of Axios
@@ -27407,7 +27294,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 244 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27426,7 +27313,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 245 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27459,7 +27346,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 246 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27487,7 +27374,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 247 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27562,7 +27449,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27606,7 +27493,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27681,7 +27568,7 @@ module.exports = (
 
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27724,7 +27611,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27784,7 +27671,7 @@ module.exports = (
 
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27843,14 +27730,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(13);
-var transformData = __webpack_require__(254);
+var transformData = __webpack_require__(253);
 var isCancel = __webpack_require__(102);
 var defaults = __webpack_require__(62);
 
@@ -27929,7 +27816,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27956,7 +27843,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27977,7 +27864,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27998,7 +27885,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28062,7 +27949,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28096,6 +27983,99 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var axios = __webpack_require__(239);
+
+var SearchForm = function (_React$Component) {
+    _inherits(SearchForm, _React$Component);
+
+    function SearchForm(props) {
+        _classCallCheck(this, SearchForm);
+
+        var _this = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props));
+
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.state = {
+            city: []
+        };
+        return _this;
+    }
+
+    _createClass(SearchForm, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            var _this2 = this;
+
+            event.preventDefault();
+            axios.get('http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city).then(function (resp) {
+                _this2.props.onSubmitSearchForm(resp.data);
+                _this2.setState({ city: '' });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                'form',
+                { action: '#', id: 'getWeatherForm', onSubmit: this.handleSubmit },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'input-group' },
+                    _react2.default.createElement('input', {
+                        type: 'text',
+                        className: 'form-control',
+                        id: 'city',
+                        placeholder: 'Enter city',
+                        required: true,
+                        value: this.state.city,
+                        onChange: function onChange(event) {
+                            return _this3.setState({ city: event.target.value });
+                        } }),
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'input-group-btn' },
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'btn btn-default', type: 'submit' },
+                            'Go!'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return SearchForm;
+}(_react2.default.Component);
+
+exports.default = SearchForm;
+
+/***/ }),
 /* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28116,7 +28096,7 @@ var Header = function Header(props) {
   return _react2.default.createElement(
     "div",
     null,
-    _react2.default.createElement("img", { src: "http://media02.hongkiat.com/funny-creative-error-404/37-error-404-page.jpg", alt: "" })
+    _react2.default.createElement("img", { src: "http://media02.hongkiat.com/funny-creative-error-404/37-error-404-page.jpg", alt: "Page not found" })
   );
 };
 exports.default = Header;
@@ -28207,6 +28187,7 @@ var Header = function Header(props) {
     _react2.default.createElement(
       "p",
       null,
+      "Param in browser is : ",
       id
     )
   );
