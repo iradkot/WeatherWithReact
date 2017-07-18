@@ -1,7 +1,7 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import WeatherListBox from './WeatherListBox';
 import SearchForm from './SearchForm';
-
 
 class WeatherApp extends React.Component {
   constructor(props) {
@@ -16,20 +16,7 @@ class WeatherApp extends React.Component {
     }
 
   }
-  search(nameKey, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].name === nameKey) {
-            return myArray[i];
-        }
-    }
-  }
-
   onSubmitSearchForm(string) {
-    if(this.search(string.location.name, this.state.cards)){
-      alert('Already found!');
-      return;
-    }
-
     var stracture = {
       name: string.location.name,
       icon: string.current.condition.icon,
