@@ -24,7 +24,7 @@ class WeatherApp extends React.Component {
       text: string.current.condition.text,
       comments: []
     };
-
+    //Were using a prevstate in a function so we can preserve the state once we are doing the update
     this.setState(prevState => ({
       cards: prevState
         .cards
@@ -33,6 +33,7 @@ class WeatherApp extends React.Component {
   };
 
   removeWeatherBox(string) {
+    //We copy the state to a new variable incase state changes
     const newState = this.state.cards;
     if (newState.indexOf(string) > -1) {
       newState.splice(newState.indexOf(string), 1);

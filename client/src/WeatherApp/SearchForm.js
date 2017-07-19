@@ -13,8 +13,13 @@ class SearchForm extends React.Component {
         const xhr = new XMLHttpRequest();
         xhr.open('GET',`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}`);
         xhr.addEventListener('load',()=>{
-            this.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
-            this.setState({city: ''});
+            if(JSON.parse(xhr.responseText).error!== 'undefined'){
+                alert('Not found :(');
+            }
+            else{
+                this.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
+                this.setState({city: ''});
+            }
         })
         xhr.addEventListener('error',()=>{
             console.log('error');
