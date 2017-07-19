@@ -26310,7 +26310,6 @@ var CommentForm = function (_React$Component) {
       formInputuser: 'Visitor',
       formInputcomment: ''
     };
-
     return _this;
   }
 
@@ -26456,11 +26455,10 @@ var SearchForm = function (_React$Component) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city);
             xhr.addEventListener('load', function () {
-                console.log('====================================');
-                console.log(JSON.parse(xhr.responseText).error);
-                console.log('====================================');
-                if (JSON.parse(xhr.responseText).error !== 'undefined') {
-                    alert('Not found :(');
+                if (JSON.parse(xhr.responseText).error == 'undefined') {
+                    //if the api works but we have an error in the response we dont want to add that
+
+                    alert('Not found :()');
                 } else {
                     _this2.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
                     _this2.setState({ city: '' });

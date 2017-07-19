@@ -9,7 +9,6 @@ class CommentForm extends React.Component {
             formInputuser: 'Visitor',
             formInputcomment: ''
         }
-
     }
     formSubmitFnc(event){
         event.preventDefault();
