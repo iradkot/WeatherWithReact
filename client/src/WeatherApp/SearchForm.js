@@ -1,5 +1,4 @@
 import React from 'react';
-const axios = require('axios');
 
 class SearchForm extends React.Component {
     constructor(props) {
@@ -11,14 +10,16 @@ class SearchForm extends React.Component {
     }
     handleSubmit(event){
         event.preventDefault();
-        axios
-            .get(`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}`)
-            .then(resp => {
-                this
-                    .props
-                    .onSubmitSearchForm(resp.data);
-                this.setState({city: ''});
-            });
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET',`http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=${this.state.city}`);
+        xhr.addEventListener('load',()=>{
+            this.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
+            this.setState({city: ''});
+        })
+        xhr.addEventListener('error',()=>{
+            console.log('error');
+        })
+        xhr.send();
     }
 
     render() {

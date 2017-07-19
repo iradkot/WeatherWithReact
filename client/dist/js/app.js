@@ -26563,11 +26563,11 @@ var _weatherApp = __webpack_require__(233);
 
 var _weatherApp2 = _interopRequireDefault(_weatherApp);
 
-var _About = __webpack_require__(260);
+var _About = __webpack_require__(259);
 
 var _About2 = _interopRequireDefault(_About);
 
-var _ = __webpack_require__(259);
+var _ = __webpack_require__(260);
 
 var _2 = _interopRequireDefault(_);
 
@@ -26792,10 +26792,26 @@ var WeatherBox = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
 
     _this.deleteBoxFnc = _this.deleteBoxFnc.bind(_this);
+    _this.state = {
+      ajaxState: 'none'
+    };
     return _this;
   }
 
   _createClass(WeatherBox, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // const xhr = new XMLHttpRequest();
+      // xhr.open('GET','http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=budapest');
+      // xhr.addEventListener('load',()=>{
+      //   console.log(JSON.parse(xhr.responseText));//JSON.parse(xhr.responseText)
+      // })
+      // xhr.addEventListener('error',()=>{
+      //   console.log('error');
+      // })
+      // xhr.send();
+    }
+  }, {
     key: 'deleteBoxFnc',
     value: function deleteBoxFnc() {
       this.props.removeWeatherBox(this.props.item); //Using a function to call function in props
@@ -27067,11 +27083,10 @@ var CommentBox = function CommentBox(props) {
       { className: "panel-body" },
       "Written by:",
       props.user,
-      "- ",
+      " - ",
       props.text,
       _react2.default.createElement("span", {
-        className: "glyphicon glyphicon-trash pull-right",
-        onClick: function onClick() {
+        className: "glyphicon glyphicon-trash pull-right", onClick: function onClick() {
           props.deleteComment(props.item);
         } })
     )
@@ -27127,10 +27142,16 @@ var SearchForm = function (_React$Component) {
             var _this2 = this;
 
             event.preventDefault();
-            axios.get('http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city).then(function (resp) {
-                _this2.props.onSubmitSearchForm(resp.data);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city);
+            xhr.addEventListener('load', function () {
+                _this2.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
                 _this2.setState({ city: '' });
             });
+            xhr.addEventListener('error', function () {
+                console.log('error');
+            });
+            xhr.send();
         }
     }, {
         key: 'render',
@@ -28071,30 +28092,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
+var About = function (_React$Component) {
+  _inherits(About, _React$Component);
 
-  function App() {
-    _classCallCheck(this, App);
+  function About() {
+    _classCallCheck(this, About);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
   }
 
-  _createClass(App, [{
+  _createClass(About, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        'Page not found.'
+        'About'
       );
     }
   }]);
 
-  return App;
+  return About;
 }(_react2.default.Component);
 
-exports.default = App;
+exports.default = About;
 
 /***/ }),
 /* 260 */
@@ -28121,30 +28142,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var About = function (_React$Component) {
-  _inherits(About, _React$Component);
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
 
-  function About() {
-    _classCallCheck(this, About);
+  function App() {
+    _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
   }
 
-  _createClass(About, [{
+  _createClass(App, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        'About'
+        'Page not found.'
       );
     }
   }]);
 
-  return About;
+  return App;
 }(_react2.default.Component);
 
-exports.default = About;
+exports.default = App;
 
 /***/ })
 /******/ ]);

@@ -6,6 +6,12 @@ class WeatherBox extends React.Component {
         super(props);
         //bind this to functions
         this.deleteBoxFnc = this.deleteBoxFnc.bind(this);
+          this.state = {
+            ajaxState: 'none'
+          }
+    }
+    componentDidMount(){
+     //We can also change the whole architecture and use the lifecycle events to get data whenever an item is passed
     }
     deleteBoxFnc(){
         this.props.removeWeatherBox(this.props.item);//Using a function to call function in props
