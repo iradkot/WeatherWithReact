@@ -26008,7 +26008,6 @@ var WeatherApp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.cards);
       return _react2.default.createElement(
         'div',
         null,
@@ -26059,6 +26058,7 @@ var WeatherListBox = function WeatherListBox(props) {
   var boxes = props.cards.map(function (item, index) {
     return _react2.default.createElement(_WeatherBox2.default, {
       key: index,
+      removeWeatherBox: props.removeWeatherBox,
       item: item });
   });
   return _react2.default.createElement(
@@ -26102,17 +26102,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WeatherBox = function (_React$Component) {
   _inherits(WeatherBox, _React$Component);
 
-  function WeatherBox() {
+  function WeatherBox(props) {
     _classCallCheck(this, WeatherBox);
 
-    return _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).apply(this, arguments));
+    //bind this to functions
+    var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
+
+    _this.deleteBoxFnc = _this.deleteBoxFnc.bind(_this);
+    return _this;
   }
 
   _createClass(WeatherBox, [{
+    key: 'deleteBoxFnc',
+    value: function deleteBoxFnc() {
+      this.props.removeWeatherBox(this.props.item); //Using a function to call function in props
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var dataItem = this.props.item;
       return _react2.default.createElement(
         'div',
@@ -26120,9 +26127,7 @@ var WeatherBox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'media' },
-          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash pull-right', onClick: function onClick() {
-              _this2.props.removeWeatherBox(_this2.props.item);
-            } }),
+          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash pull-right', onClick: this.deleteBoxFnc }),
           _react2.default.createElement(
             'div',
             { className: 'media-left' },

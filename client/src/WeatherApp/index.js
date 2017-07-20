@@ -54,7 +54,6 @@ class WeatherApp extends React.Component {
   };
 
   render() {
-    console.log(this.state.cards);
     return (
       <div>
         <div className="page-header">
