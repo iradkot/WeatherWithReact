@@ -1,34 +1,21 @@
 import React from 'react';
 import CommentsListBox from './CommentsListBox';
 
-class WeatherBox extends React.Component {
-  constructor(props) {
-        super(props);
-        //bind this to functions
-        this.deleteBoxFnc = this.deleteBoxFnc.bind(this);
-          this.state = {
-            ajaxState: 'none'
-          }
-    }
-    componentDidMount(){
-     //We can also change the whole architecture and use the lifecycle events to get data whenever an item is passed
-    }
-    deleteBoxFnc(){
-        this.props.removeWeatherBox(this.props.item);//Using a function to call function in props
-    }
+class WeatherBox extends React.Component { 
   render() {
+    const dataItem = this.props.item;
     return (
        <div className="equalHMV eq">
         <div className="media">
-          <span className="glyphicon glyphicon-trash pull-right" onClick={this.deleteBoxFnc}></span>
+          <span className="glyphicon glyphicon-trash pull-right" onClick={()=>{this.props.removeWeatherBox(this.props.item)}}></span>
           <div className="media-left">
-            <img src={this.props.icon} alt={this.props.name} className="media-object" style={{ width: 60}}/></div>
+            <img src={dataItem.icon} alt={dataItem.name} className="media-object" style={{ width: 60}}/></div>
           <div className="media-body">
-            <h4 className="media-heading">{this.props.name}</h4>
-            <p>{this.props.text}- {this.props.feelslike_c} &nbsp;| C</p>
+            <h4 className="media-heading">{dataItem.name}</h4>
+            <p>{dataItem.text}- {dataItem.feelslike_c} &nbsp;| C</p>
           </div>
         </div>
-        <CommentsListBox comments={this.props.comments}/>
+        <CommentsListBox comments={dataItem.comments}/>
         <hr/>
       </div>
     )

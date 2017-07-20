@@ -6,9 +6,6 @@ const WeatherListBox = (props) => {
     .cards
     .map((item, index) => <WeatherBox
       key={index}
-      index={index}
-      removeWeatherBox={props.removeWeatherBox}
-      {...item}
       item={item}/>)
   return (
     <div className="equalHeightWrap flexWrap">

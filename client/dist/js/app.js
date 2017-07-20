@@ -26008,6 +26008,7 @@ var WeatherApp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state.cards);
       return _react2.default.createElement(
         'div',
         null,
@@ -26044,8 +26045,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -26058,12 +26057,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var WeatherListBox = function WeatherListBox(props) {
   var boxes = props.cards.map(function (item, index) {
-    return _react2.default.createElement(_WeatherBox2.default, _extends({
+    return _react2.default.createElement(_WeatherBox2.default, {
       key: index,
-      index: index,
-      removeWeatherBox: props.removeWeatherBox
-    }, item, {
-      item: item }));
+      item: item });
   });
   return _react2.default.createElement(
     'div',
@@ -26106,43 +26102,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WeatherBox = function (_React$Component) {
   _inherits(WeatherBox, _React$Component);
 
-  function WeatherBox(props) {
+  function WeatherBox() {
     _classCallCheck(this, WeatherBox);
 
-    //bind this to functions
-    var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
-
-    _this.deleteBoxFnc = _this.deleteBoxFnc.bind(_this);
-    _this.state = {
-      ajaxState: 'none'
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).apply(this, arguments));
   }
 
   _createClass(WeatherBox, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      //We can also change the whole architecture and use the lifecycle events to get data whenever an item is passed
-    }
-  }, {
-    key: 'deleteBoxFnc',
-    value: function deleteBoxFnc() {
-      this.props.removeWeatherBox(this.props.item); //Using a function to call function in props
-    }
-  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var dataItem = this.props.item;
       return _react2.default.createElement(
         'div',
         { className: 'equalHMV eq' },
         _react2.default.createElement(
           'div',
           { className: 'media' },
-          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash pull-right', onClick: this.deleteBoxFnc }),
+          _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash pull-right', onClick: function onClick() {
+              _this2.props.removeWeatherBox(_this2.props.item);
+            } }),
           _react2.default.createElement(
             'div',
             { className: 'media-left' },
-            _react2.default.createElement('img', { src: this.props.icon, alt: this.props.name, className: 'media-object', style: { width: 60 } })
+            _react2.default.createElement('img', { src: dataItem.icon, alt: dataItem.name, className: 'media-object', style: { width: 60 } })
           ),
           _react2.default.createElement(
             'div',
@@ -26150,19 +26134,19 @@ var WeatherBox = function (_React$Component) {
             _react2.default.createElement(
               'h4',
               { className: 'media-heading' },
-              this.props.name
+              dataItem.name
             ),
             _react2.default.createElement(
               'p',
               null,
-              this.props.text,
+              dataItem.text,
               '- ',
-              this.props.feelslike_c,
+              dataItem.feelslike_c,
               ' \xA0| C'
             )
           )
         ),
-        _react2.default.createElement(_CommentsListBox2.default, { comments: this.props.comments }),
+        _react2.default.createElement(_CommentsListBox2.default, { comments: dataItem.comments }),
         _react2.default.createElement('hr', null)
       );
     }
@@ -26455,14 +26439,8 @@ var SearchForm = function (_React$Component) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://api.apixu.com/v1/current.json?key=5f1979d6812b411491d164417171806&q=' + this.state.city);
             xhr.addEventListener('load', function () {
-                if (JSON.parse(xhr.responseText).error == 'undefined') {
-                    //if the api works but we have an error in the response we dont want to add that
-
-                    alert('Not found :()');
-                } else {
-                    _this2.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
-                    _this2.setState({ city: '' });
-                }
+                _this2.props.onSubmitSearchForm(JSON.parse(xhr.responseText));
+                _this2.setState({ city: '' });
             });
             xhr.addEventListener('error', function () {
                 console.log('error');
