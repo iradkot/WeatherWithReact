@@ -15,13 +15,11 @@ class WeatherBox extends React.Component {
         let currentComment = this.state.comment;
         this.state.comments.push(currentComment);
         this.setState({ comment: '' })
-        console.log(this.state.comments);
     }
     removeComment(index) {
         let tempstate = this.state.comments.slice();
         tempstate.splice(index,1);
         this.setState({comments:tempstate});
-        console.log(index);
     }
     render() {
         const comments = this.state.comments.map((item, index) => <CommentBox

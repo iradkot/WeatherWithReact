@@ -1,15 +1,14 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class App extends React.Component {
   render() {
     return (
-      <div className="page-header">
-        <div className="row">
-          <h1 style={{textAlign: 'center'}}>
-            The Weather-App Bitches!
-          </h1>
-        </div>
-      </div>
+        <ul className="nav nav-tabs">
+          <li role="presentation"><Link to="/">Home</Link></li>
+          <li role="presentation"><Link to="/login">Login</Link></li>
+          <li role="presentation"><Link to="/register">Register</Link></li>
+        </ul>
     );
   }
 }

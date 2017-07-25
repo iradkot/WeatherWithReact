@@ -8,7 +8,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div className="containter">
           <Header/>
           <div className="container">
             <Routesss/>
