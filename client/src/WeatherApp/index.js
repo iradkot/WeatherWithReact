@@ -9,7 +9,7 @@ class WeatherApp extends React.Component {
     //bind this to functions
     // this.removeWeatherBox = this.removeWeatherBox.bind(this);
     this.onSubmitSearchForm = this.onSubmitSearchForm.bind(this);
-
+    this.removeBox = this.removeBox.bind(this);
     //Declare local state
     this.state = {
       cards: []
@@ -23,13 +23,16 @@ class WeatherApp extends React.Component {
       text: string.current.condition.text,
       comments: []
     };
-
     this.setState(prevState => ({
       cards: prevState
         .cards
         .concat(stracture)
     }));
-    console.log(stracture);
+  }
+  removeBox(index) {
+    let tempstate = this.state.cards.slice();
+    tempstate.splice(index,1);
+    this.setState({cards:tempstate});
   }
   render() {
     return (
@@ -38,7 +41,7 @@ class WeatherApp extends React.Component {
           <h2>Weather search and such</h2>
           <SearchForm onSubmitSearchForm={this.onSubmitSearchForm} />
         </div>
-        <WeatherListBox cards={this.state.cards} />
+        <WeatherListBox removeBox={this.removeBox} cards={this.state.cards} />
       </div>
     );
   }

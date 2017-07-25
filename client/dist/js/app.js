@@ -23600,7 +23600,7 @@ var WeatherApp = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (WeatherApp.__proto__ || Object.getPrototypeOf(WeatherApp)).call(this, props));
 
     _this.onSubmitSearchForm = _this.onSubmitSearchForm.bind(_this);
-
+    _this.removeBox = _this.removeBox.bind(_this);
     //Declare local state
     _this.state = {
       cards: []
@@ -23618,13 +23618,18 @@ var WeatherApp = function (_React$Component) {
         text: string.current.condition.text,
         comments: []
       };
-
       this.setState(function (prevState) {
         return {
           cards: prevState.cards.concat(stracture)
         };
       });
-      console.log(stracture);
+    }
+  }, {
+    key: 'removeBox',
+    value: function removeBox(index) {
+      var tempstate = this.state.cards.slice();
+      tempstate.splice(index, 1);
+      this.setState({ cards: tempstate });
     }
   }, {
     key: 'render',
@@ -23642,7 +23647,7 @@ var WeatherApp = function (_React$Component) {
           ),
           _react2.default.createElement(_SearchForm2.default, { onSubmitSearchForm: this.onSubmitSearchForm })
         ),
-        _react2.default.createElement(_WeatherListBox2.default, { cards: this.state.cards })
+        _react2.default.createElement(_WeatherListBox2.default, { removeBox: this.removeBox, cards: this.state.cards })
       );
     }
   }]);
@@ -23677,7 +23682,9 @@ var WeatherListBox = function WeatherListBox(props) {
   var boxes = props.cards.map(function (item, index) {
     return _react2.default.createElement(_WeatherBox2.default, {
       key: index,
-      item: item });
+      index: index,
+      item: item,
+      removeBox: props.removeBox });
   });
   return _react2.default.createElement(
     'div',
@@ -23705,6 +23712,10 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _CommentBox = __webpack_require__(231);
+
+var _CommentBox2 = _interopRequireDefault(_CommentBox);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23716,39 +23727,95 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var WeatherBox = function (_React$Component) {
     _inherits(WeatherBox, _React$Component);
 
-    function WeatherBox() {
+    function WeatherBox(props) {
         _classCallCheck(this, WeatherBox);
 
-        return _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (WeatherBox.__proto__ || Object.getPrototypeOf(WeatherBox)).call(this, props));
+
+        _this.addComment = _this.addComment.bind(_this);
+        _this.removeComment = _this.removeComment.bind(_this);
+        _this.state = {
+            comments: _this.props.item.comments,
+            comment: ""
+        };
+        return _this;
     }
 
     _createClass(WeatherBox, [{
-        key: "render",
+        key: 'addComment',
+        value: function addComment() {
+            var currentComment = this.state.comment;
+            this.state.comments.push(currentComment);
+            this.setState({ comment: '' });
+            console.log(this.state.comments);
+        }
+    }, {
+        key: 'removeComment',
+        value: function removeComment(index) {
+            var tempstate = this.state.comments.slice();
+            tempstate.splice(index, 1);
+            this.setState({ comments: tempstate });
+            console.log(index);
+        }
+    }, {
+        key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var comments = this.state.comments.map(function (item, index) {
+                return _react2.default.createElement(_CommentBox2.default, {
+                    key: index,
+                    index: index,
+                    item: item,
+                    removeComment: _this2.removeComment });
+            });
             return _react2.default.createElement(
-                "div",
-                { id: this.props.index, className: "col-md-4", style: { textAlign: "center" } },
+                'div',
+                { id: this.props.index, className: 'col-md-8 col-md-offset-2 weather-box', style: { textAlign: "center" } },
                 _react2.default.createElement(
-                    "button",
-                    { className: "btn btn-danger pull-right" },
-                    "Remove"
+                    'button',
+                    { className: 'btn btn-danger pull-right', onClick: function onClick() {
+                            return _this2.props.removeBox(_this2.props.index);
+                        } },
+                    'Remove'
                 ),
                 _react2.default.createElement(
-                    "h1",
+                    'h1',
                     { style: { display: "inline-block" } },
                     this.props.item.name,
-                    " "
+                    ' '
                 ),
-                _react2.default.createElement("img", { src: this.props.item.icon }),
+                _react2.default.createElement('img', { src: this.props.item.icon }),
                 _react2.default.createElement(
-                    "h4",
+                    'h4',
                     null,
                     this.props.item.feelslike_c
                 ),
                 _react2.default.createElement(
-                    "h5",
+                    'h5',
                     null,
                     this.props.item.text
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'comments-box' },
+                    _react2.default.createElement(
+                        'form',
+                        { action: '#', onSubmit: this.addComment, className: 'form-inline' },
+                        _react2.default.createElement('input', { type: 'text', id: 'comment', placeholder: 'Comment', value: this.state.comment, required: true, onChange: function onChange(event) {
+                                return _this2.setState({ comment: event.target.value });
+                            } }),
+                        _react2.default.createElement(
+                            'button',
+                            { type: 'submit', className: 'btn-success' },
+                            'Add Comment'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'comments panel' },
+                        comments
+                    )
                 )
             );
         }
@@ -26211,6 +26278,76 @@ NavLink.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__(12);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_react_router__["i"]; });
 
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentBox = function (_React$Component) {
+    _inherits(CommentBox, _React$Component);
+
+    function CommentBox() {
+        _classCallCheck(this, CommentBox);
+
+        return _possibleConstructorReturn(this, (CommentBox.__proto__ || Object.getPrototypeOf(CommentBox)).apply(this, arguments));
+    }
+
+    _createClass(CommentBox, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                "div",
+                { className: "row" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-md-8 col-md-offset-2 single-comment" },
+                    _react2.default.createElement(
+                        "p",
+                        { style: { display: 'inline-block' }, id: this.props.index },
+                        " ",
+                        this.props.item,
+                        " "
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { className: "btn btn-danger btn-xs pull-right",
+                            onClick: function onClick() {
+                                return _this2.props.removeComment(_this2.props.index);
+                            } },
+                        " remove comment "
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CommentBox;
+}(_react2.default.Component);
+
+exports.default = CommentBox;
 
 /***/ })
 /******/ ]);

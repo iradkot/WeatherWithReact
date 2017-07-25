@@ -5,8 +5,10 @@ const WeatherListBox = (props) => {
   const boxes = props
     .cards
     .map((item, index) => <WeatherBox
-      key={index}
-      item={item}/>)
+      key = {index}
+      index= {index}
+      item={item} 
+      removeBox = {props.removeBox}/>)
   return (
     <div>
       {boxes}
